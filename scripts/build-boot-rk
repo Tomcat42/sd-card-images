@@ -37,6 +37,12 @@ rk3366)
     # Collect version of rkbin
     printf "rkbin,%s\n" "$(git -C rkbin describe --tags --always --abbrev=10)" >> versions.csv
     ;;
+rk3528)
+    export BL31="$PWD/rkbin/bin/rk35/rk3528_bl31_v1.18.elf"
+    ROCKCHIP_TPL="$PWD/rkbin/bin/rk35/rk3528_ddr_1056MHz_v1.10.bin"
+    # Collect version of rkbin
+    printf "rkbin,%s\n" "$(git -C rkbin describe --tags --always --abbrev=10)" >> versions.csv
+    ;;
 rk3568)
     export BL31="$PWD/rkbin/bin/rk35/rk3568_bl31_v1.44.elf"
     export ROCKCHIP_TPL="$PWD/rkbin/bin/rk35/rk3568_ddr_1560MHz_v1.23.bin"
