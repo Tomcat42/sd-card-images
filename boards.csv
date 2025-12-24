@@ -23,6 +23,7 @@ nanopi_r2c,Nano Pi R2C,FriendlyElec,rk3328,nanopi-r2c-rk3328_defconfig,aarch64-l
 naonpi_r2c_plus,Nano Pi R2C Plus,FriendlyElec,rk3328,nanopi-r2c-plus-rk3328_defconfig,aarch64-linux-gnu,rk3328-nanopi-r2c-plus
 nanopi_r2s,Nano Pi R2S,FriendlyElec,rk3328,nanopi-r2s-rk3328_defconfig,aarch64-linux-gnu,rk3328-nanopi-r2s
 nanopi_r2s_plus,Nano Pi R2S Plus,FriendlyElec,rk3328,nanopi-r2s-plus-rk3328_defconfig,aarch64-linux-gnu,rk3328-nanopi-r2s-plus
+nanopi_neo3,Nano Pi Neo3,FriendlyElec,rk3328,nanopi-r2s-rk3328_defconfig,aarch64-linux-gnu,rk3328-nanopi-r2s
 orangepi_r1_plus,Orange Pi R1 Plus,Xunlong,rk3328,orangepi-r1-plus-rk3328_defconfig,aarch64-linux-gnu,rk3328-orangepi-r1-plus
 orangepi_r1_plus_lts,Orange Pi R1 Plus LTS,Xunlong,rk3328,orangepi-r1-plus-lts-rk3328_defconfig,aarch64-linux-gnu,rk3328-orangepi-r1-plus-lts
 roc_rk3328_cc,ROC-RK3328-CC,Firefly,rk3328,roc-cc-rk3328_defconfig,aarch64-linux-gnu,rk3328-roc-cc
@@ -37,7 +38,7 @@ ficus,Ficus,96boards,rk3399,ficus-rk3399_defconfig,aarch64-linux-gnu,rk3399-ficu
 firefly_rk3399,Firefly-RK3399,Firefly,rk3399,firefly-rk3399_defconfig,aarch64-linux-gnu,rk3399-firefly
 khadas_edge,Edge,Khadas,rk3399,khadas-edge-rk3399_defconfig,aarch64-linux-gnu,rk3399-khadas-edge
 khadas_edge_v,Edge V,Khadas,rk3399,khadas-edge-v-rk3399_defconfig,aarch64-linux-gnu,rk3399-khadas-edge-v
-leez_p710,Leez P720,Lenovo,rk3399,leez-rk3399_defconfig,aarch64-linux-gnu,rk3399-leez-p710
+leez_p710,Leez P710,Lenovo,rk3399,leez-rk3399_defconfig,aarch64-linux-gnu,rk3399-leez-p710
 nanopc_t4,NanoPC-T4,FriendlyElec,rk3399,nanopc-t4-rk3399_defconfig,aarch64-linux-gnu,rk3399-nanopc-t4
 nanopi_m4,Nano Pi M4,FriendlyElec,rk3399,nanopi-m4-rk3399_defconfig,aarch64-linux-gnu,rk3399-nanopi-m4
 nanopi_m4b,Nano Pi M4 B,FriendlyElec,rk3399,nanopi-m4b-rk3399_defconfig,aarch64-linux-gnu,rk3399-nanopi-m4b
@@ -80,6 +81,7 @@ orangepi_5_plus,Orange Pi 5 Plus,Xunlong,rk3588,orangepi-5-plus-rk3588_defconfig
 quartzpro64,QuartzPro64,PINE64,rk3588,quartzpro64-rk3588_defconfig,aarch64-linux-gnu,rk3588-quartzpro64
 rock_5_itx,ROCK 5 ITX,Radxa,rk3588,rock-5-itx-rk3588_defconfig,aarch64-linux-gnu,rk3588-rock-5-itx
 rock_5b,ROCK 5B,Radxa,rk3588,rock5b-rk3588_defconfig,aarch64-linux-gnu,rk3588-rock-5b
+rock_5c,ROCK 5C,Radxa,rk3588,rock-5c-rk3588s_defconfig,aarch64-linux-gnu,rk3588s-rock-5c
 orangepi_5,Orange Pi 5,Xunlong,rk3588,orangepi-5-rk3588s_defconfig,aarch64-linux-gnu,rk3588s-orangepi-5
 rock_5a,ROCK 5A,Radxa,rk3588,rock5a-rk3588s_defconfig,aarch64-linux-gnu,rk3588s-rock-5a
 cool_pi_4b,Cool Pi 4B,Yanyi Tech,rk3588,coolpi-4b-rk3588s_defconfig,aarch64-linux-gnu,rk3588s-coolpi-4b

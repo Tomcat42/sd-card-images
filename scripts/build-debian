@@ -20,24 +20,6 @@ debian-arm64)
 	KERNEL_URL=http://packages.debian.org/"${DIST}"/"${KERNEL}"
 	SCRIPT=/usr/share/debootstrap/scripts/sid
 	;;
-debian-i386)
-	KERNEL=linux-image-686
-	URL=http://deb.debian.org/debian
-	KERNEL_URL=http://packages.debian.org/"${DIST}"/"${KERNEL}"
-	SCRIPT=/usr/share/debootstrap/scripts/sid
-	;;
-debian-amd64)
-	KERNEL=linux-image-amd64
-	URL=http://deb.debian.org/debian
-	KERNEL_URL=http://packages.debian.org/"${DIST}"/"${KERNEL}"
-	SCRIPT=/usr/share/debootstrap/scripts/sid
-	;;
-ubuntu-amd64)
-	KERNEL=linux-image-generic
-	URL=http://archive.ubuntu.com/ubuntu
-	KERNEL_URL=http://packages.ubuntu.com/"${DIST}"/"${KERNEL}"
-	SCRIPT=/usr/share/debootstrap/scripts/gutsy
-	;;
 ubuntu-armhf|ubuntu-arm64)
 	KERNEL=linux-image-generic
 	URL=http://ports.ubuntu.com/ubuntu-ports
@@ -79,6 +61,8 @@ u-boot-tools,\
 initramfs-tools,\
 openssh-server,\
 nano,\
+systemd,\
+systemd-sysv,\
 e2fsprogs \
   "${TARGET}" \
   debian \
@@ -114,16 +98,6 @@ deb http://security.debian.org/debian-security ${DIST}-security main
 deb-src http://security.debian.org/debian-security ${DIST}-security main
 EOF
 	;;
-ubuntu-amd64-*)
-	tee debian/tmp/sources.list <<- EOF
-deb http://archive.ubuntu.com/ubuntu ${DIST} main universe
-deb-src http://archive.ubuntu.com/ubuntu ${DIST} main universe
-deb http://archive.ubuntu.com/ubuntu ${DIST}-updates main universe
-deb-src http://archive.ubuntu.com/ubuntu ${DIST}-updates main universe
-deb http://archive.ubuntu.com/ubuntu ${DIST}-security main universe
-deb-src http://archive.ubuntu.com/ubuntu ${DIST}-security main universe
-EOF
-	;;
 ubuntu-*)
 	tee debian/tmp/sources.list <<- EOF
 deb http://ports.ubuntu.com/ubuntu-ports ${DIST} main universe
@@ -150,7 +124,7 @@ EOF
 esac
 
 cp -rv --preserve=mode ../2nd-stage-files/pre-2nd-stage-files/* debian
-cp -rv --preserve=mode ../2nd-stage-files/pre-2nd-stage-files-${ARCH}/* debian
+cp -rv --preserve=mode ../2nd-stage-files/pre-2nd-stage-files-"${ARCH}"/* debian
 
 # Copy ARM emulation stuff
 cp -v /usr/bin/qemu-*-static debian/usr/bin || :
@@ -160,23 +134,29 @@ chroot debian /bin/sh -ex <<- EOF
 /debootstrap/debootstrap --second-stage
 /bin/mv /tmp/sources.list /etc/apt/sources.list
 /bin/mv /tmp/priority-experimental /etc/apt/preferences.d/priority-experimental || :
+
+# Mount procfs (apt needs it)
+/usr/bin/mount -t proc proc /proc
+
 /usr/bin/apt-get update
 /usr/bin/apt-get -y upgrade
 /usr/bin/apt-get -y --no-install-recommends ${KERNELSUITE} install "${KERNEL}"
-/usr/bin/apt-get -y install systemd systemd-sysv
 /usr/bin/apt-get -y install systemd-timesyncd || :
 /usr/bin/apt-get -y install systemd-resolved || :
 /usr/bin/apt-get clean
 /bin/rm -rf /var/lib/apt/lists/*
-echo "kernel-url,${KERNEL_URL}\n" >> /tmp/versions.csv
+/bin/echo "kernel-url,${KERNEL_URL}" >> /tmp/versions.csv
 /usr/bin/dpkg-query --showformat='kernel,\${Version}\n' --show "${KERNEL}" >> /tmp/versions.csv
 /usr/bin/systemctl enable systemd-networkd.service
 /usr/bin/systemctl enable systemd-resolved.service
 /usr/bin/systemctl enable systemd-timesyncd.service
-/usr/bin/systemctl enable generate-ssh-host-keys.service
+/usr/bin/systemctl enable sshd-keygen.service
 /bin/rm -f /var/log/*.log
 /bin/echo "root:${PASSWORD}" | /usr/sbin/chpasswd
 /bin/sed -i "s/#*\s*PermitRootLogin .*/PermitRootLogin yes/" /etc/ssh/sshd_config
+
+# Unmount procfs again
+/usr/bin/umount /proc
 EOF
 
 # Remove ARM emulation stuff again
